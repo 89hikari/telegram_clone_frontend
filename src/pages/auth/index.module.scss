@@ -24,17 +24,19 @@
 
         .bottom {
             display: flex;
-            & > * {
+
+            &>* {
                 margin: 0;
                 margin-top: 16px;
             }
-            
+
             span {
                 margin-left: 8px;
                 cursor: pointer;
                 text-decoration: underline;
                 transition: .3s;
                 color: #7667ff;
+
                 &:hover {
                     opacity: 0.8;
                 }
