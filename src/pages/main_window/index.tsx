@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react'
 import { Input } from "antd";
 import styles from "./index.module.scss";
 import classnames from "classnames";
@@ -8,6 +9,11 @@ import { DownOutlined } from "@ant-design/icons";
 const MainWindow: React.FC = () => {
 
     const [scrollButtonActive, setScrollButtonActive] = useState<boolean>(false);
+    const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
 
     const cx = (isActive: boolean) => {
         return classnames({
@@ -294,7 +300,7 @@ const MainWindow: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={cx(true)}>
+                    <div className={cx(false)}>
                         <div className={styles.avatar}></div>
                         <div className={styles.person}>
                             <div>
@@ -395,7 +401,8 @@ const MainWindow: React.FC = () => {
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
                             <span>16:33</span>
                         </div>
-                        {scrollButtonActive && <div className={styles.gobottom_btn}><DownOutlined /></div>}
+                        <div ref={messagesEndRef} />
+                        {scrollButtonActive && <div className={styles.gobottom_btn} onClick={() => scrollToBottom()}><DownOutlined /></div>}
                     </div>
                     <div className={styles.input_wrapper}>
                         <TextArea
