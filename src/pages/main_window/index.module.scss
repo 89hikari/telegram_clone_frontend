@@ -86,90 +86,6 @@ body {
                     background-color: rgba(0, 0, 0, 0.3);
                 }
             }
-
-            .conversation {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                column-gap: 8px;
-                border-radius: 12px;
-                padding: 8px;
-                cursor: pointer;
-
-                &.active {
-                    background-color: rgb(51, 144, 236);
-
-                    & * {
-                        color: #fff;
-                    }
-                }
-
-                .avatar {
-                    width: 54px;
-                    height: 54px;
-                    min-width: 54px;
-                    background-color: #8a8a8a;
-                    border-radius: 50%;
-                }
-
-                .person {
-                    display: flex;
-                    flex-direction: column;
-                    margin: 0;
-
-                    p {
-                        margin: 0;
-                    }
-
-                    width: calc(100% - 62px);
-
-                    :nth-child(1) {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        margin-bottom: 3px;
-
-                        p {
-                            font-weight: bold;
-                        }
-
-                        span {
-                            font-size: 13px;
-                            opacity: .7;
-                        }
-                    }
-
-                    :nth-child(2) {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        overflow: hidden;
-
-                        p {
-                            width: max-content;
-                            display: inline-block;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
-                            word-wrap: break-word;
-                            max-height: 1.15em;
-                            line-height: 1.15em;
-                            margin: 0 20px 0 0;
-                        }
-
-                        span {
-                            font-weight: bold;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: #fff;
-                            background-color: #b3b3b3;
-                            padding: 5px 10px;
-                            border-radius: 20px;
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -233,32 +149,6 @@ body {
             row-gap: 10px;
             margin: 10px 0;
             overflow-y: scroll;
-
-            .message {
-                background-color: #fff;
-                max-width: 464px;
-                padding: 5px 8px 6px 8px;
-                border-radius: 0.375rem 0.9375rem 0.9375rem 0;
-                box-shadow: 0 1px 2px rgb(114, 114, 114, 0.251);
-                display: flex;
-
-                p {
-                    font-size: 16px;
-                    margin: 0;
-                }
-
-                span {
-                    font-size: 12px;
-                    margin-left: 10px;
-                    align-self: flex-end;
-                }
-
-                &.me {
-                    background-color: rgb(238, 255, 222);
-                    border-radius: 0.9375rem 0.375rem 0 0.9375rem;
-                    margin-left: auto;
-                }
-            }
 
             .gobottom_btn {
                 position: absolute;

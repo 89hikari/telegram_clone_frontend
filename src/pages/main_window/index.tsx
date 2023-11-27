@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Input } from "antd";
-import styles from "./index.module.scss";
-import classnames from "classnames";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
+import Message from '../../components/message';
+import Conversation from '../../components/conversation';
+import styles from "./index.module.scss";
 
 const MainWindow: React.FC = () => {
 
@@ -14,20 +15,6 @@ const MainWindow: React.FC = () => {
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-
-    const cx = (isActive: boolean) => {
-        return classnames({
-            [styles.active]: isActive,
-            [styles.conversation]: true,
-        });
-    };
-
-    const messageClasses = (isMe: boolean) => {
-        return classnames({
-            [styles.me]: isMe,
-            [styles.message]: true,
-        });
-    };
 
     const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
         const bottom =
@@ -40,6 +27,45 @@ const MainWindow: React.FC = () => {
         }
         setScrollButtonActive(false);
     }
+
+    const messages = [
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
+            time: "15:33",
+            isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
+            time: "15:33",
+            isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        }
+    ];
+
+    const convs = [
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
+            time: "15:33",
+            name: "Vasya Pupkin",
+            unread_count: 11
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
+            time: "15:33",
+            name: "Vasya",
+            unread_count: 4
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr m",
+            time: "15:33",
+            name: "Pupkin",
+            unread_count: 0
+        }
+    ]
 
     return (
         <section className={styles.wrapper}>
@@ -60,277 +86,7 @@ const MainWindow: React.FC = () => {
                     />
                 </div>
                 <div className={styles.conversations}>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx(false)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={cx(true)}>
-                        <div className={styles.avatar}></div>
-                        <div className={styles.person}>
-                            <div>
-                                <p>Name name</p>
-                                <span>00:11</span>
-                            </div>
-                            <div>
-                                <p>
-                                    message messaaf fa dad ffda adf af dafd ge
-                                </p>
-                                <span>22</span>
-                            </div>
-                        </div>
-                    </div>
+                    {convs.map((el, key) => <Conversation key={key} {...el} />)}
                 </div>
             </div>
             <div className={styles.chat}>
@@ -345,62 +101,7 @@ const MainWindow: React.FC = () => {
                 </div>
                 <div className={styles.chat__viewport}>
                     <div className={styles.messages} onScroll={(e) => handleScroll(e)}>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(true)}>
-                            <p>Lorem ipsum dolor sit amet conseafafctetur, adipisicin. r, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque od</p>
-                            <span>16:33</span>
-                        </div>
-                        <div className={messageClasses(false)}>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo consequatur modi ullam officia, labore deleniti itaque odit vel sequi officiis? Provident numquam rem omnis inventore ducimus magnam fuga vitae dolorem.</p>
-                            <span>16:33</span>
-                        </div>
+                        {messages.map((el, key) => <Message key={key} {...el} />)}
                         <div ref={messagesEndRef} />
                         {scrollButtonActive && <div className={styles.gobottom_btn} onClick={() => scrollToBottom()}><DownOutlined /></div>}
                     </div>
