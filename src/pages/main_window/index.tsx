@@ -69,6 +69,262 @@ const MainWindow: React.FC = () => {
                             </div>
                         </div>
                     </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={cx(true)}>
+                        <div className={styles.avatar}></div>
+                        <div className={styles.person}>
+                            <div>
+                                <p>Name name</p>
+                                <span>00:11</span>
+                            </div>
+                            <div>
+                                <p>
+                                    message messaaf fa dad ffda adf af dafd ge
+                                </p>
+                                <span>22</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className={styles.chat}>
