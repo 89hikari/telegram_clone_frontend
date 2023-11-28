@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Input } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
@@ -6,8 +6,22 @@ import { DownOutlined } from "@ant-design/icons";
 import Message from '../../components/message';
 import Conversation from '../../components/conversation';
 import styles from "./index.module.scss";
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/stateHooks';
+import { RootState } from '../../store';
 
 const MainWindow: React.FC = () => {
+
+    const navigate = useNavigate();
+    const { token } = useAppSelector((state: RootState) => state.global);
+    
+    const checkAuth = () => {
+        if (!token) navigate("/noauth");
+    }
+
+    useEffect(() => {
+        checkAuth();
+    }, []);
 
     const [scrollButtonActive, setScrollButtonActive] = useState<boolean>(false);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -38,6 +52,141 @@ const MainWindow: React.FC = () => {
             text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
             time: "15:33",
             isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
+            time: "15:33",
+            isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
+            time: "15:33",
+            isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
+            time: "15:33",
+            isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
+            time: "15:33",
+            isMe: false
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
+        },
+        {
+            text: "Lorem mgsrmgsrmgsr mjposg",
+            time: "15:33",
+            isMe: true
         },
         {
             text: "Lorem mgsrmgsrmgsr mjposg",

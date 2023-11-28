@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Auth from './pages/auth'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MainWindow from './pages/main_window'
