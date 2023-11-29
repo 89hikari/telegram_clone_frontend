@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Tooltip, Button, message } from 'antd'
+import { Input, Tooltip, Button, message, Select } from 'antd'
 import { InfoCircleOutlined, UserOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 import useQuery from '../../utils/useQuery';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 
 ; import styles from './index.module.scss';
-import { authentificate } from '../../store/global/api';
+import { authentificate, signup } from '../../store/global/api';
 import { RootState } from '../../store';
 
 const AuthForm: React.FC = () => {
@@ -86,12 +86,41 @@ const AuthForm: React.FC = () => {
 
 const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [gender, setGender] = useState<"male" | "female">("male");
+
+  const handleInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    callback: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    callback(event.target.value);
+  }
+
+  const handleChangeGender = (value: { value: "male" | "female"; label: React.ReactNode }) => {
+    setGender(value.value)
+  };
+
+  const handleSubmit = () => {
+    dispatch(signup({
+      email: email,
+      gender: gender,
+      name: username,
+      password: password
+    }))
+  }
+
   return (
     <>
       <h2>Registration</h2>
       <Input
+        value={username}
         placeholder="Enter username"
         size="large"
+        onChange={(e) => handleInput(e, setUsername)}
         style={{ marginBottom: 16 }}
         prefix={<UserOutlined className="site-form-item-icon" />}
         suffix={
@@ -100,13 +129,45 @@ const RegistrationForm: React.FC = () => {
           </Tooltip>
         }
       />
+      <Input
+        value={email}
+        placeholder="Enter email"
+        size="large"
+        onChange={(e) => handleInput(e, setEmail)}
+        style={{ marginBottom: 16 }}
+        prefix={<UserOutlined className="site-form-item-icon" />}
+        suffix={
+          <Tooltip title="Type your email here">
+            <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+          </Tooltip>
+        }
+      />
       <Input.Password
+        value={password}
         size="large"
         placeholder="Enter password"
-        style={{ marginBottom: 25 }}
+        onChange={(e) => handleInput(e, setPassword)}
+        style={{ marginBottom: 16 }}
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
       />
-      <Button type="primary" size="large">Submit</Button>
+      <Select
+        labelInValue
+        size="large"
+        defaultValue={{ value: 'male', label: 'Male' }}
+        style={{ width: '100%', marginBottom: 25 }}
+        onChange={handleChangeGender}
+        options={[
+          {
+            value: 'male',
+            label: 'Male',
+          },
+          {
+            value: 'female',
+            label: 'Female',
+          },
+        ]}
+      />
+      <Button type="primary" size="large" onClick={() => handleSubmit()}>Submit</Button>
       <div className={styles.bottom}>
         <p>Already has account?</p>
         <span onClick={() => navigate("/noauth?mode=auth")}>Login</span>

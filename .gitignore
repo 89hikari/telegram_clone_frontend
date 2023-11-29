@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+.react-email
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
