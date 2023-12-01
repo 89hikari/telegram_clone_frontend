@@ -13,15 +13,19 @@ export const messagesSlice = createSlice({
     name: 'messages',
     initialState,
     reducers: {
-        // clearData: (state) => {
-        //     state.user = { ...initialState.user };
-        //     state.token = '';
-        //     localStorage.setItem("TELEGRAM_CLONE_TOKEN", '');
-        //     console.log(state)
-        // },
-        // setUserDataFromToken: (state) => {
-        //     state.user = { ...parseJwt(state.token) };
-        // }
+        catchMessageFromSocket: (state, action) => {
+            let date: string = '';
+            try {
+                date = action.payload.createdAt.split("T")[1].split(":").slice(0, 2).join(":");
+            } catch (error) { }
+            state.currentMessages = [...state.currentMessages, {
+                id: NaN,
+                message: action.payload.message,
+                receiverId: action.payload.receiverId,
+                senderId: action.payload.senderId,
+                createdFormatDate: date
+            }]
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -68,24 +72,15 @@ export const messagesSlice = createSlice({
                 else
                     state.error_message = `${action.error.code} - ${action.error.message}`;
             })
-            .addCase(sendMessage.fulfilled, (state, action) => {
+            .addCase(sendMessage.fulfilled, (state) => {
                 state.error = false;
                 state.error_message = '';
-                const date = action.payload.createdAt.split("T")[1].split(":").slice(0, 2).join(":");
-                state.currentMessages.push({
-                    id: action.payload.id,
-                    senderId: action.payload.senderId,
-                    message: action.payload.message,
-                    receiverId: action.payload.receiverId,
-                    createdFormatDate: date
-                });
             })
     }
 })
 
-// export const {
-//     clearData,
-//     setUserDataFromToken
-// } = globalSlice.actions;
+export const {
+    catchMessageFromSocket
+} = messagesSlice.actions;
 
 export default messagesSlice.reducer;

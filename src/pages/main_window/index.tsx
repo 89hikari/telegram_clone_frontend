@@ -1,43 +1,51 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react';
+import { useState } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
+import { io } from 'socket.io-client/debug';
+
 import { Input } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
+
 import Message from '../../components/message';
 import Conversation from '../../components/conversation';
-import styles from "./index.module.scss";
-import { useNavigate, useParams } from 'react-router-dom';
+import Menu from '../../components/menu';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { RootState } from '../../store';
+
 import { checkTokenExpired, parseJwt } from '../../utils/parseToken';
 import { clearData, setUserDataFromToken } from '../../store/global/globalSlice';
-import Menu from '../../components/menu';
 import { getAllMessagesById, getSidebarLastMessages, sendMessage } from '../../store/messages/api';
-import { io } from 'socket.io-client/debug';
+import { catchMessageFromSocket } from '../../store/messages/messagesSlice';
+
+import styles from "./index.module.scss";
 
 const socket = io(`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_URL}`, {
     autoConnect: false
 });
 
 const MainWindow: React.FC = () => {
-    const { peer_id = '' } = useParams();
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    const { peer_id = '' } = useParams();
+
     const { token, user } = useAppSelector((state: RootState) => state.global);
     const { sidebar, currentMessages } = useAppSelector((state: RootState) => state.messages);
+
     const [pageVisible, setPageVisible] = useState<boolean>(false);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
+    const [scrollButtonActive, setScrollButtonActive] = useState<boolean>(false);
+
     const goToChat = (peer: number) => navigate(`/chat/${peer}`);
 
-    // const [isConnected, setIsConnected] = useState(socket.connected);
-    // const [fooEvents, setFooEvents] = useState([]);
+    const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
-    useEffect(() => {
-        socket.connect();
-        checkAuth();
-        if (token) dispatch(getSidebarLastMessages({}));
-    }, []);
+    const SOCKET_POST_MESSAGE_TOPIC = `sendMessage`;
+    let SOCKET_GET_MESSAGE_TOPIC: string;
 
     const checkAuth = () => {
         if (token) {
@@ -49,6 +57,7 @@ const MainWindow: React.FC = () => {
 
             dispatch(setUserDataFromToken());
             setPageVisible(true);
+            socket.connect();
             return;
         }
 
@@ -59,22 +68,7 @@ const MainWindow: React.FC = () => {
         if (!token) navigate("/noauth");
     }
 
-    useEffect(() => {
-        emptyTokenRedirect();
-    }, [token]);
-
-    useEffect(() => {
-        if (peer_id) {
-            dispatch(getAllMessagesById({ id: peer_id }));
-        }
-    }, [peer_id]);
-
-    const [scrollButtonActive, setScrollButtonActive] = useState<boolean>(false);
-    const messagesEndRef = useRef<null | HTMLDivElement>(null);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
+    const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 
     const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
         const bottom =
@@ -88,10 +82,6 @@ const MainWindow: React.FC = () => {
         setScrollButtonActive(false);
     }
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [currentMessages]);
-
     const handleInput = (
         event: React.ChangeEvent<HTMLTextAreaElement>,
         callback: React.Dispatch<React.SetStateAction<string>>
@@ -104,11 +94,49 @@ const MainWindow: React.FC = () => {
         if (event.key === 'Enter' && message.trim() !== '') {
             event.preventDefault();
             dispatch(sendMessage({ message: message, receiverId: +peer_id }));
+            socket.emit(SOCKET_POST_MESSAGE_TOPIC, {
+                message: message,
+                receiverId: +peer_id,
+                senderId: user.id,
+                updatedAt: new Date(),
+                createdAt: new Date()
+            });
             setMessage('');
         }
     }
 
     const calcActiveChat = (receiver: number, sender: number) => sender === +peer_id || receiver === +peer_id;
+
+    useEffect(() => {
+        checkAuth();
+        if (token) {
+            dispatch(getSidebarLastMessages({}));
+        }
+    }, []);
+
+    useEffect(() => {
+        emptyTokenRedirect();
+    }, [token]);
+
+    useEffect(() => {
+        if (peer_id) {
+            dispatch(getAllMessagesById({ id: peer_id }));
+        }
+    }, [peer_id]);
+
+    // SET TOPIC FOR TWO PEOPLE CHATTING
+    useEffect(() => {
+        if (peer_id && user.id) {
+            SOCKET_GET_MESSAGE_TOPIC = `messages_${[+peer_id, +user.id].sort().join("_")}`;
+            socket.timeout(5000).on(SOCKET_GET_MESSAGE_TOPIC, (msg) => {
+                dispatch(catchMessageFromSocket(msg));
+            });
+        }
+    }, [peer_id, user.id]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [currentMessages]);
 
     return (
         pageVisible &&
