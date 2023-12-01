@@ -7,17 +7,41 @@ import Message from '../../components/message';
 import Conversation from '../../components/conversation';
 import styles from "./index.module.scss";
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/stateHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { RootState } from '../../store';
+import { checkTokenExpired, parseJwt } from '../../utils/parseToken';
+import { clearData, setUserDataFromToken } from '../../store/global/globalSlice';
 
 const MainWindow: React.FC = () => {
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const { token } = useAppSelector((state: RootState) => state.global);
-    
+    const [pageVisible, setPageVisible] = useState<boolean>(false);
+
     const checkAuth = () => {
+        if (token) {
+            const tokenData = parseJwt(token);
+            if (checkTokenExpired(tokenData.exp)) {
+                dispatch(clearData());
+                return;
+            }
+
+            dispatch(setUserDataFromToken());
+            setPageVisible(true);
+            return;
+        }
+
+        navigate("/noauth");
+    }
+
+    const emptyTokenRedirect = () => {
         if (!token) navigate("/noauth");
     }
+
+    useEffect(() => {
+        emptyTokenRedirect();
+    }, [token]);
 
     useEffect(() => {
         checkAuth();
@@ -217,6 +241,7 @@ const MainWindow: React.FC = () => {
     ]
 
     return (
+        pageVisible &&
         <section className={styles.wrapper}>
             <div className={styles.sidebar}>
                 <div className={styles.search}>
