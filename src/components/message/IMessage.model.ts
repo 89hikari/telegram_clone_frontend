@@ -1,5 +1,7 @@
 export default interface IMessage {
-    text: string,
-    time: string,
-    isMe: boolean
+    id: number,
+    message: string,
+    senderId: number,
+    receiverId: number,
+    createdFormatDate: string
 }

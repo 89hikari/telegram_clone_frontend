@@ -6,18 +6,38 @@ import { DownOutlined } from "@ant-design/icons";
 import Message from '../../components/message';
 import Conversation from '../../components/conversation';
 import styles from "./index.module.scss";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { RootState } from '../../store';
 import { checkTokenExpired, parseJwt } from '../../utils/parseToken';
 import { clearData, setUserDataFromToken } from '../../store/global/globalSlice';
+import Menu from '../../components/menu';
+import { getAllMessagesById, getSidebarLastMessages, sendMessage } from '../../store/messages/api';
+import { io } from 'socket.io-client/debug';
+
+const socket = io(`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_URL}`, {
+    autoConnect: false
+});
 
 const MainWindow: React.FC = () => {
-
+    const { peer_id = '' } = useParams();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { token } = useAppSelector((state: RootState) => state.global);
+    const { token, user } = useAppSelector((state: RootState) => state.global);
+    const { sidebar, currentMessages } = useAppSelector((state: RootState) => state.messages);
     const [pageVisible, setPageVisible] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
+    const goToChat = (peer: number) => navigate(`/chat/${peer}`);
+
+    // const [isConnected, setIsConnected] = useState(socket.connected);
+    // const [fooEvents, setFooEvents] = useState([]);
+
+    useEffect(() => {
+        socket.connect();
+        checkAuth();
+        if (token) dispatch(getSidebarLastMessages({}));
+    }, []);
 
     const checkAuth = () => {
         if (token) {
@@ -44,8 +64,10 @@ const MainWindow: React.FC = () => {
     }, [token]);
 
     useEffect(() => {
-        checkAuth();
-    }, []);
+        if (peer_id) {
+            dispatch(getAllMessagesById({ id: peer_id }));
+        }
+    }, [peer_id]);
 
     const [scrollButtonActive, setScrollButtonActive] = useState<boolean>(false);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -66,186 +88,35 @@ const MainWindow: React.FC = () => {
         setScrollButtonActive(false);
     }
 
-    const messages = [
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
-            time: "15:33",
-            isMe: false
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
-            time: "15:33",
-            isMe: false
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
-            time: "15:33",
-            isMe: false
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
-            time: "15:33",
-            isMe: false
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
-            time: "15:33",
-            isMe: false
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrspor",
-            time: "15:33",
-            isMe: false
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposg",
-            time: "15:33",
-            isMe: true
-        }
-    ];
+    useEffect(() => {
+        scrollToBottom();
+    }, [currentMessages]);
 
-    const convs = [
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
-            time: "15:33",
-            name: "Vasya Pupkin",
-            unread_count: 11
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr mjposgrpo  sgrpjogpojsrpgojsrsporgj gpsojrpos jrgspoj grspog jr",
-            time: "15:33",
-            name: "Vasya",
-            unread_count: 4
-        },
-        {
-            text: "Lorem mgsrmgsrmgsr m",
-            time: "15:33",
-            name: "Pupkin",
-            unread_count: 0
+    const handleInput = (
+        event: React.ChangeEvent<HTMLTextAreaElement>,
+        callback: React.Dispatch<React.SetStateAction<string>>
+    ) => {
+        callback(event.target.value);
+    }
+
+    const checkEnterPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter' && event.shiftKey) return;
+        if (event.key === 'Enter' && message.trim() !== '') {
+            event.preventDefault();
+            dispatch(sendMessage({ message: message, receiverId: +peer_id }));
+            setMessage('');
         }
-    ]
+    }
+
+    const calcActiveChat = (receiver: number, sender: number) => sender === +peer_id || receiver === +peer_id;
 
     return (
         pageVisible &&
         <section className={styles.wrapper}>
+            <Menu isOpen={openModal} openCallback={setOpenModal} />
             <div className={styles.sidebar}>
                 <div className={styles.search}>
-                    <div className={styles.options_btn}>
+                    <div className={styles.options_btn} onClick={() => setOpenModal(true)}>
                         <span></span>
                         <span></span>
                         <span></span>
@@ -260,7 +131,16 @@ const MainWindow: React.FC = () => {
                     />
                 </div>
                 <div className={styles.conversations}>
-                    {convs.map((el, key) => <Conversation key={key} {...el} />)}
+                    {sidebar.map((el, key) =>
+                        <Conversation
+                            key={key}
+                            {...el}
+                            isActive={calcActiveChat(el.receiverId, el.senderId)}
+                            shownName={user.id === el.senderId ? el.receiver.name : el.sender.name}
+                            linkCallback={goToChat}
+                            link={user.id === el.senderId ? el.receiverId : el.senderId}
+                        />
+                    )}
                 </div>
             </div>
             <div className={styles.chat}>
@@ -275,12 +155,15 @@ const MainWindow: React.FC = () => {
                 </div>
                 <div className={styles.chat__viewport}>
                     <div className={styles.messages} onScroll={(e) => handleScroll(e)}>
-                        {messages.map((el, key) => <Message key={key} {...el} />)}
+                        {currentMessages.map((el, key) => <Message key={key} {...el} isMe={el.senderId !== +peer_id} />)}
                         <div ref={messagesEndRef} />
                         {scrollButtonActive && <div className={styles.gobottom_btn} onClick={() => scrollToBottom()}><DownOutlined /></div>}
                     </div>
                     <div className={styles.input_wrapper}>
                         <TextArea
+                            value={message}
+                            onKeyDown={(e) => checkEnterPress(e)}
+                            onChange={(e) => handleInput(e, setMessage)}
                             placeholder="Type your message here"
                             style={{
                                 padding: "15px 20px"

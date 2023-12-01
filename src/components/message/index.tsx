@@ -2,7 +2,7 @@ import classnames from "classnames";
 import IMessage from "./IMessage.model";
 import styles from "./index.module.scss";
 
-const Message: React.FC<IMessage> = (props: IMessage) => {
+const Message: React.FC<IMessage & { isMe: boolean }> = (props: IMessage & { isMe: boolean }) => {
     const classes = classnames({
         [styles.me]: props.isMe,
         [styles.message]: true,
@@ -10,8 +10,8 @@ const Message: React.FC<IMessage> = (props: IMessage) => {
 
     return (
         <div className={classes}>
-            <p>{props.text}</p>
-            <span>{props.time}</span>
+            <p>{props.message}</p>
+            <span>{props.createdFormatDate}</span>
         </div>
     );
 };

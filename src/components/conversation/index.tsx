@@ -1,26 +1,35 @@
 import classnames from "classnames";
-import IConversation from "./IConversation.model";
 import styles from "./index.module.scss";
+import { ISidebarMessage } from "../../store/messages/models";
 
-const Conversation: React.FC<IConversation> = (props: IConversation) => {
+type SidebarMessageMaped
+    = ISidebarMessage
+    & {
+        shownName: string,
+        linkCallback: (peer: number) => void,
+        link: number,
+        isActive: boolean
+    };
+
+const Conversation: React.FC<SidebarMessageMaped> = (props: SidebarMessageMaped) => {
     const classes = classnames({
-        [styles.active]: false,
+        [styles.active]: props.isActive,
         [styles.conversation]: true,
     });
 
     return (
-        <div className={classes}>
+        <div className={classes} onClick={() => props.linkCallback(props.link)}>
             <div className={styles.avatar}></div>
             <div className={styles.person}>
                 <div>
-                    <p>{props.name}</p>
-                    <span>{props.time}</span>
+                    <p>{props.shownName}</p>
+                    <span>{props.createdFormatDate}</span>
                 </div>
                 <div>
                     <p>
-                        {props.text}
+                        {props.message}
                     </p>
-                    {!!props.unread_count && <span>{props.unread_count}</span>}
+                    {/* {!!props.unread_count && <span>{props.unread_count}</span>} */}
                 </div>
             </div>
         </div>

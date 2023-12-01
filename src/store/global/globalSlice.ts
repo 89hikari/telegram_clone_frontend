@@ -2,12 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IUser } from './models';
 import { authentificate, signup } from './api';
 import { parseJwt } from '../../utils/parseToken';
+import { socketIOUrl } from './socket-io';
+import { io } from 'socket.io-client/debug';
+
 
 export interface IGlobal {
     user: IUser,
     token: string,
     error: boolean,
-    error_message: string
+    error_message: string,
 }
 
 const initialState: IGlobal = {
@@ -29,6 +32,7 @@ export const globalSlice = createSlice({
         clearData: (state) => {
             state.user = { ...initialState.user };
             state.token = '';
+            localStorage.setItem("TELEGRAM_CLONE_TOKEN", '');
         },
         setUserDataFromToken: (state) => {
             state.user = { ...parseJwt(state.token) };

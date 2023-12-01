@@ -7,6 +7,6 @@ export const api = axios.create({
     }
 });
 
-export const createBaseUrl = (controller: string, action: string) => {
-    return `${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_URL}/${controller}/${action}`;
+export const createBaseUrl = (controller: string, action?: string) => {
+    return `${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_URL}/${controller}${action ? `/${action}` : ''}`;
 }
