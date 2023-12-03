@@ -20,6 +20,7 @@ import { getAllMessagesById, getSidebarLastMessages, sendMessage } from '../../s
 import { catchMessageFromSocket } from '../../store/messages/messagesSlice';
 
 import styles from "./index.module.scss";
+import DebaunceUserSearch from '../../components/debaunce_user_search';
 
 const socket = io(`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_URL}`, {
     autoConnect: false
@@ -86,7 +87,7 @@ const MainWindow: React.FC = () => {
         setScrollButtonActive(false);
     }
 
-    const handleInput = (
+    const handleInput = (   
         event: React.ChangeEvent<HTMLTextAreaElement>,
         callback: React.Dispatch<React.SetStateAction<string>>
     ) => {
@@ -153,14 +154,7 @@ const MainWindow: React.FC = () => {
                         <span></span>
                         <span></span>
                     </div>
-                    <Input
-                        placeholder="Search"
-                        style={{
-                            height: 42,
-                            borderRadius: 22,
-                            padding: "0 44px",
-                        }}
-                    />
+                    <DebaunceUserSearch />
                 </div>
                 <div className={styles.conversations}>
                     {sidebar.map((el, key) =>

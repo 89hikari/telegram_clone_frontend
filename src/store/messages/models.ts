@@ -3,7 +3,7 @@ export interface ISidebarMessage {
     message: number,
     senderId: number,
     receiverId: number,
-    createdFormatDate: number,
+    createdFormatDate: string,
     receiver: {
         id: number,
         name: string

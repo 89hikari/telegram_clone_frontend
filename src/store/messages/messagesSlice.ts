@@ -24,7 +24,28 @@ export const messagesSlice = createSlice({
                 receiverId: action.payload.receiverId,
                 senderId: action.payload.senderId,
                 createdFormatDate: date
-            }]
+            }];
+
+            const sidebarIndex = state.sidebar
+                .findIndex(elem =>
+                    (elem.receiverId === action.payload.receiverId
+                        && elem.senderId === action.payload.senderId)
+                    || (elem.receiverId === action.payload.senderId
+                        && elem.senderId === action.payload.receiverId));
+
+            if (sidebarIndex === -1) return;
+
+            const sidebarElem = state.sidebar[sidebarIndex];
+            state.sidebar.splice(sidebarIndex, 1);
+            state.sidebar = [{
+                id: NaN,
+                createdFormatDate: date,
+                message: action.payload.message,
+                receiverId: action.payload.receiverId,
+                senderId: action.payload.senderId,
+                sender: sidebarElem.sender,
+                receiver: sidebarElem.receiver
+            }, ...state.sidebar];
         }
     },
     extraReducers: (builder) => {
