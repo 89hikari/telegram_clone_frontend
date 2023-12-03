@@ -61,11 +61,15 @@ const MainWindow: React.FC = () => {
             return;
         }
 
+        socket.disconnect();
         navigate("/noauth");
     }
 
     const emptyTokenRedirect = () => {
-        if (!token) navigate("/noauth");
+        if (!token) {
+            socket.disconnect();
+            navigate("/noauth");
+        }
     }
 
     const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
