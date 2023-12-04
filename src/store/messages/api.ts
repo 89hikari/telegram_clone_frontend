@@ -47,3 +47,17 @@ export const sendMessage = createAsyncThunk<any, any, { state: RootState }>(
         return data;
     }
 );
+
+export const getPeerInfo = createAsyncThunk<any, any, { state: RootState }>(
+    "messages/getPeerInfo",
+    async ({ id }: { id: number }, { getState }) => {
+        const rootState = getState();
+        const response = api.get(createBaseUrl('users', id.toString()), {
+            headers: {
+                Authorization: `Bearer ${rootState.global.token}`
+            }
+        });
+        const data = (await response).data;
+        return data;
+    }
+);

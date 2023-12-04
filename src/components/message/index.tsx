@@ -10,7 +10,7 @@ const Message: React.FC<IMessage & { isMe: boolean }> = (props: IMessage & { isM
 
     return (
         <div className={classes}>
-            <p>{props.message}</p>
+            <p>{props.message?.trim()}</p>
             <span>{props.createdFormatDate}</span>
         </div>
     );

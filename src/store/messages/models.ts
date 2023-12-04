@@ -22,9 +22,16 @@ export interface ICurrentMessage {
     createdFormatDate: string
 }
 
+export interface IPeerInfo {
+    id: number,
+    name: string,
+    email: string
+}
+
 export interface IMessages {
     sidebar: ISidebarMessage[],
     currentMessages: ICurrentMessage[],
+    peerInfo: IPeerInfo,
     error: boolean,
     error_message: string
 }

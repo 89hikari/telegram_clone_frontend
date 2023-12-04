@@ -1,5 +1,5 @@
 import Auth from './pages/auth'
-import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainWindow from './pages/main_window'
 
 const routes = [
