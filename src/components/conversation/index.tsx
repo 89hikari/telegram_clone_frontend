@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import styles from "./index.module.scss";
-import { ISidebarMessage } from "../../store/messages/models";
+import { ISidebarMessage } from "@/store/messages/models";
 
 type SidebarMessageMaped
     = ISidebarMessage

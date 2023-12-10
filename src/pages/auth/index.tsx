@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Tooltip, Button, message, Select } from 'antd'
 import { InfoCircleOutlined, UserOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
-import useQuery from '../../utils/useQuery';
-import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import useQuery from '@/utils/useQuery';
+import { useAppDispatch, useAppSelector } from '@/hooks/stateHooks';
 
-; import styles from './index.module.scss';
-import { authentificate, signup } from '../../store/global/api';
-import { RootState } from '../../store';
+import { authentificate, signup } from '@/store/global/api';
+import { RootState } from '@/store';
+
+import styles from './index.module.scss';
 
 const AuthForm: React.FC = () => {
   const navigate = useNavigate();
@@ -24,6 +25,10 @@ const AuthForm: React.FC = () => {
     callback: React.Dispatch<React.SetStateAction<string>>
   ) => {
     callback(event.target.value);
+  }
+
+  const onPressEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.key === "Enter" && dispatch(authentificate({ email: email, password: password }));
   }
 
   const isButtonActive = password.length >= 4 && email.length >= 3;
@@ -58,6 +63,7 @@ const AuthForm: React.FC = () => {
         value={email}
         placeholder="Enter username"
         size="large"
+        onKeyDown={(e) => onPressEnter(e)}
         onChange={(e) => handleInput(e, setEmail)}
         style={{ marginBottom: 16 }}
         prefix={<UserOutlined className="site-form-item-icon" />}
@@ -69,6 +75,7 @@ const AuthForm: React.FC = () => {
       />
       <Input.Password
         value={password}
+        onKeyDown={(e) => onPressEnter(e)}
         onChange={(e) => handleInput(e, setPassword)}
         size="large"
         placeholder="Enter password"

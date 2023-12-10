@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { api, createBaseUrl } from '../../api'
+import { api, createBaseUrl } from '@/api'
 import { RootState } from '..';
 
 export const getAllMessagesById = createAsyncThunk<any, any, { state: RootState }>(
     "messages/getAllMessagesById",
     async ({ id }: { id: number }, { getState }) => {
-        console.log(id);
         const rootState = getState();
         const response = api.get(createBaseUrl('messages', id.toString()), {
             headers: {

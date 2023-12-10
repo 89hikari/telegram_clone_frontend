@@ -2,9 +2,9 @@ import React, { useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { Select, Spin } from 'antd';
 import type { SelectProps } from 'antd/es/select';
-import { createBaseUrl } from '../../api';
-import { useAppSelector } from '../../hooks/stateHooks';
-import { RootState } from '../../store';
+import { createBaseUrl } from '@/api';
+import { useAppSelector } from '@/hooks/stateHooks';
+import { RootState } from '@/store';
 import { useNavigate } from 'react-router-dom';
 
 export interface DebounceSelectProps<ValueType = any>

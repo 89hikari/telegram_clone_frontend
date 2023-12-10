@@ -6,18 +6,18 @@ import { io } from 'socket.io-client/debug';
 import TextArea from "antd/es/input/TextArea";
 import { DownOutlined } from "@ant-design/icons";
 
-import Message from '../../components/message';
-import Conversation from '../../components/conversation';
-import Menu from '../../components/menu';
-import DebaunceUserSearch from '../../components/debaunce_user_search';
+import Message from '@/components/message';
+import Conversation from '@/components/conversation';
+import Menu from '@/components/menu';
+import DebaunceUserSearch from '@/components/debaunce_user_search';
 
-import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
-import { RootState } from '../../store';
+import { useAppDispatch, useAppSelector } from '@/hooks/stateHooks';
+import { RootState } from '@/store';
 
-import { checkTokenExpired, parseJwt } from '../../utils/parseToken';
-import { clearData, setUserDataFromToken } from '../../store/global/globalSlice';
-import { getAllMessagesById, getPeerInfo, getSidebarLastMessages, sendMessage } from '../../store/messages/api';
-import { catchMessageFromSocket, catchNonExistendMessageFromSocket } from '../../store/messages/messagesSlice';
+import { checkTokenExpired, parseJwt } from '@/utils/parseToken';
+import { clearData, setUserDataFromToken } from '@/store/global/globalSlice';
+import { getAllMessagesById, getPeerInfo, getSidebarLastMessages, sendMessage } from '@/store/messages/api';
+import { catchMessageFromSocket, catchNonExistendMessageFromSocket } from '@/store/messages/messagesSlice';
 
 import styles from "./index.module.scss";
 

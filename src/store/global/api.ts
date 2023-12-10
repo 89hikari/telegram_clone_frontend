@@ -9,7 +9,6 @@ export const authentificate = createAsyncThunk(
             password: password
         });
         const data = (await response).data;
-        console.log(data);
         return data;
     }
 );
@@ -24,7 +23,6 @@ export const signup = createAsyncThunk(
             gender: gender
         });
         const data = (await response).data;
-        console.log(data);
         return data;
     }
 );

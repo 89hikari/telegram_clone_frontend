@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 import IMenu from "./IMenu.model";
-import { useAppDispatch } from "../../hooks/stateHooks";
-import { clearData } from "../../store/global/globalSlice";
+import { useAppDispatch } from "@/hooks/stateHooks";
+import { clearData } from "@/store/global/globalSlice";
 
 const Menu: React.FC<IMenu> = (params) => {
 
