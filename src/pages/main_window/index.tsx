@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { io } from 'socket.io-client/debug';
 
 import TextArea from "antd/es/input/TextArea";
-import { DownOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, DownOutlined } from "@ant-design/icons";
 
 import Message from '@/components/message';
 import Conversation from '@/components/conversation';
@@ -61,7 +61,9 @@ const MainWindow: React.FC = () => {
     let SOCKET_GET_MESSAGE_TOPIC: string;
 
     const [width, height] = useWindowSize();
+
     const [sidebarMobile, setSidebarMobile] = useState<boolean>(false);
+    const [mobileViewChat, setMobileViewChat] = useState<boolean>(!!peer_id && !!!sidebarMobile);
 
     const checkAuth = () => {
         if (token) {
@@ -139,6 +141,12 @@ const MainWindow: React.FC = () => {
 
     const calcActiveChat = (receiver: number, sender: number) => sender === +peer_id || receiver === +peer_id;
 
+    const handleMobileView = (sidebarVisible: boolean) => {
+        sidebarMobile && setMobileViewChat(sidebarVisible);
+    }
+
+    const calcMobileSidebar = !sidebarMobile ? true : !mobileViewChat;
+
     // CHECK AUTH AND GET PAGE DATA
     useEffect(() => {
         checkAuth();
@@ -163,6 +171,7 @@ const MainWindow: React.FC = () => {
     // SET TOPIC FOR TWO PEOPLE CHATTING
     useEffect(() => {
         if (peer_id && user.id) {
+            setMobileViewChat(true);
             SOCKET_GET_MESSAGE_TOPIC = `messages_${[+peer_id, +user.id].sort().join("_")}`; // lol
             const socketCallback = (msg: any) => dispatch(catchMessageFromSocket(msg));
             socket.off(SOCKET_GET_MESSAGE_TOPIC, socketCallback).on(SOCKET_GET_MESSAGE_TOPIC, socketCallback); // workaround to get rid of doubles
@@ -204,7 +213,7 @@ const MainWindow: React.FC = () => {
         pageVisible &&
         <section className={styles.wrapper}>
             <Menu isOpen={openModal} openCallback={setOpenModal} />
-            <div className={styles.sidebar}>
+            {calcMobileSidebar && <div className={styles.sidebar}>
                 <div className={styles.search}>
                     <div className={styles.options_btn} onClick={() => setOpenModal(true)}>
                         <span></span>
@@ -221,14 +230,16 @@ const MainWindow: React.FC = () => {
                             isActive={calcActiveChat(el.receiverId, el.senderId)}
                             shownName={user.id === el.senderId ? el.receiver.name : el.sender.name}
                             linkCallback={goToChat}
+                            setMobileView={setMobileViewChat}
                             link={user.id === el.senderId ? el.receiverId : el.senderId}
                         />
                     )}
                 </div>
-            </div>
-            <div className={styles.chat}>
+            </div>}
+           {mobileViewChat && <div className={styles.chat}>
                 {!!peerInfo.id && <div className={styles.peer_header}>
                     <div className={styles.person}>
+                        {sidebarMobile && <ArrowLeftOutlined style={{ width: 30 }} onClick={() => handleMobileView(false)} />}
                         <div className={styles.avatar}></div>
                         <div>
                             <p>{peerInfo.name}</p>
@@ -255,7 +266,7 @@ const MainWindow: React.FC = () => {
                         />}
                     </div>
                 </div>
-            </div>
+            </div>}
         </section>
     );
 };

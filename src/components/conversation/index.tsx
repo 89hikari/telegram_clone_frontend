@@ -7,6 +7,7 @@ type SidebarMessageMaped
     & {
         shownName: string,
         linkCallback: (peer: number) => void,
+        setMobileView: React.Dispatch<React.SetStateAction<boolean>>
         link: number,
         isActive: boolean
     };
@@ -17,8 +18,13 @@ const Conversation: React.FC<SidebarMessageMaped> = (props: SidebarMessageMaped)
         [styles.conversation]: true,
     });
 
+    const action = () => {
+        props.linkCallback(props.link);
+        props.setMobileView(true);
+    }
+
     return (
-        <div className={classes} onClick={() => props.linkCallback(props.link)}>
+        <div className={classes} onClick={() => action()}>
             <div className={styles.avatar}></div>
             <div className={styles.person}>
                 <div>

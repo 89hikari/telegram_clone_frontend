@@ -16,11 +16,20 @@ body {
     border-left: 1px solid #dfe1e5;
     border-right: 1px solid #dfe1e5;
 
+    @media screen and (max-width: 896px) {
+        border: none;
+    }
+
     .sidebar {
         width: 420px;
         height: 100%;
         background-color: #fff;
         border-right: 1px solid #dfe1e5;
+
+        @media screen and (max-width: 896px) {
+            width: 100%;
+            border: none;
+        }
 
         .search {
             padding: 8px 16px;
@@ -114,10 +123,18 @@ body {
             align-items: center;
             justify-content: space-between;
 
+            @media screen and (max-width: 896px) {
+                padding: 12px 10px;
+            }
+
             .person {
                 display: flex;
                 align-items: center;
                 column-gap: 8px;
+
+                &:last-child {
+                    word-break: break-word;
+                }
 
                 & * {
                     margin: 0;
