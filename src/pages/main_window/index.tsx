@@ -28,21 +28,14 @@ import { checkTokenExpired, parseJwt } from "@/utils/parseToken";
 
 import styles from "./index.module.scss";
 
-const socket = io(
-  `${import.meta.env.VITE_BACKEND_PROTOCOL}://${
-    import.meta.env.VITE_BACKEND_URL
-  }`,
-  {
-    autoConnect: false,
-  }
-);
+const socket = io(import.meta.env.VITE_API_BASE_URL, {
+  autoConnect: false,
+});
 
 const useWindowSize = () => {
   const [size, setSize] = useState([0, 0]);
+  const updateSize = () => setSize([window.innerWidth, window.innerHeight]);
   useLayoutEffect(() => {
-    const updateSize = () => {
-      setSize([window.innerWidth, window.innerHeight]);
-    };
     window.addEventListener("resize", updateSize);
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
@@ -73,7 +66,7 @@ const MainWindow: React.FC = () => {
   const SOCKET_POST_MESSAGE_TOPIC = `sendMessage`;
   let SOCKET_GET_MESSAGE_TOPIC: string;
 
-  const [width, height] = useWindowSize();
+  const [width] = useWindowSize();
 
   const [sidebarMobile, setSidebarMobile] = useState<boolean>(false);
   const [mobileViewChat, setMobileViewChat] = useState<boolean>(

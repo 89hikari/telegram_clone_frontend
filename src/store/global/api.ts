@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { api, createBaseUrl } from "../../api";
+import { api } from "../../api";
 
 export const authentificate = createAsyncThunk(
   "auth/login",
   async ({ email, password }: { email: string; password: string }) => {
-    const response = api.post(createBaseUrl("auth", "login"), {
+    const response = api.post("/auth/login", {
       email: email,
       password: password,
     });
@@ -26,7 +26,7 @@ export const signup = createAsyncThunk(
     name: string;
     gender: "male" | "female";
   }) => {
-    const response = api.post(createBaseUrl("auth", "signup"), {
+    const response = api.post("auth/signup", {
       email: email,
       password: password,
       name: name,
