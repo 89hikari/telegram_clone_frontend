@@ -1,16 +1,13 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import ReactDOM from 'react-dom/client'
-import App from './index.tsx'
-import { store } from './store/index.ts'
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import App from "./index.tsx";
+import { store } from "./store/index.ts";
 
-import './index.scss'
-import 'normalize.css'
+import "normalize.css";
+import "./index.scss";
 
-ReactDOM
-    .createRoot(document.getElementById('root')!)
-    .render(
-        <Provider store={store}>
-            <App />
-        </Provider>
-    );
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

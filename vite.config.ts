@@ -1,16 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import react from "@vitejs/plugin-react";
+import path from "path";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   define: {
-    'process.env': {}
+    "process.env": {},
   },
   resolve: {
     alias: {
-      "@": path.join(__dirname, "src/")
-    }
-  }
-})
+      "@": path.join(__dirname, "src/"),
+    },
+  },
+});
