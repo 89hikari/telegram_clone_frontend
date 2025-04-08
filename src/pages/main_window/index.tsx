@@ -102,12 +102,7 @@ const MainWindow: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    const bottom =
-      (event.target as HTMLInputElement).scrollHeight -
-        (event.target as HTMLInputElement).scrollTop ===
-      (event.target as HTMLInputElement).clientHeight;
-
-    if (!bottom) {
+    if ((event.target as HTMLInputElement).scrollTop < 0) {
       setScrollButtonActive(true);
       return;
     }
@@ -211,13 +206,6 @@ const MainWindow: React.FC = () => {
     }
   }, [user.id]);
 
-  // SCROLL TO BOTTOM MESSAGES BLOCK
-  useEffect(() => {
-    setTimeout(() => {
-      scrollToBottom();
-    }, 200);
-  }, [currentMessages]);
-
   // HIDE DEFAULT SIDEBAR IF SCREEN WIDTH IS BELOW 896 PX
   useEffect(() => {
     if (width <= 896) {
@@ -284,10 +272,10 @@ const MainWindow: React.FC = () => {
                 className={styles.messages}
                 onScroll={(e) => handleScroll(e)}
               >
+                <div ref={messagesEndRef} />
                 {currentMessages.map((el, key) => (
                   <Message key={key} {...el} isMe={el.senderId !== +peer_id} />
                 ))}
-                <div ref={messagesEndRef} />
                 {scrollButtonActive && (
                   <div
                     className={styles.gobottom_btn}

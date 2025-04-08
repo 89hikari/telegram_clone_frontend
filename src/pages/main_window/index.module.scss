@@ -161,7 +161,7 @@ body {
 
     .messages {
       display: flex;
-      flex-direction: column;
+      flex-direction: column-reverse;
       row-gap: 15px;
       margin: 10px 0;
       padding: 0 10px;
