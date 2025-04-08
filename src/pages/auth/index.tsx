@@ -34,16 +34,12 @@ const AuthForm: React.FC = () => {
     callback(event.target.value);
   };
 
-  const onPressEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    event.key === "Enter" &&
-      dispatch(authentificate({ email: email, password: password }));
-  };
+  const handleAuth = () => dispatch(authentificate({ name: email, password }));
+
+  const onPressEnter = (event: React.KeyboardEvent<HTMLInputElement>) =>
+    event.key === "Enter" && handleAuth();
 
   const isButtonActive = password.length >= 4 && email.length >= 3;
-
-  const handleAuth = () => {
-    dispatch(authentificate({ email: email, password: password }));
-  };
 
   const triggerError = () => {
     messageApi.open({
@@ -69,7 +65,7 @@ const AuthForm: React.FC = () => {
       <h2>Authoziration</h2>
       <Input
         value={email}
-        placeholder="Enter username"
+        placeholder="Enter username or e-mail"
         size="large"
         onKeyDown={(e) => onPressEnter(e)}
         onChange={(e) => handleInput(e, setEmail)}

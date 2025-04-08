@@ -250,13 +250,11 @@ const MainWindow: React.FC = () => {
                 <Conversation
                   key={key}
                   {...el}
-                  isActive={calcActiveChat(el.receiverId, el.senderId)}
-                  shownName={
-                    user.id === el.senderId ? el.receiver.name : el.sender.name
-                  }
+                  isActive={el.personId === +peer_id}
+                  shownName={el.personName}
                   linkCallback={goToChat}
                   setMobileView={setMobileViewChat}
-                  link={user.id === el.senderId ? el.receiverId : el.senderId}
+                  link={el.personId}
                 />
               ))}
             </div>

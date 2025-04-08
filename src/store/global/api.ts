@@ -3,10 +3,10 @@ import { api } from "../../api";
 
 export const authentificate = createAsyncThunk(
   "auth/login",
-  async ({ email, password }: { email: string; password: string }) => {
+  async ({ name, password }: { name: string; password: string }) => {
     const response = api.post("/auth/login", {
-      email: email,
-      password: password,
+      name,
+      password,
     });
     const data = (await response).data;
     return data;

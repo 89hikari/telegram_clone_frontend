@@ -1,3 +1,4 @@
+import { api } from "@/api";
 import { useAppSelector } from "@/hooks/stateHooks";
 import { RootState } from "@/store";
 import { Select, Spin } from "antd";
@@ -79,12 +80,13 @@ const DebaunceUserSearch: React.FC = () => {
   const { token } = useAppSelector((state: RootState) => state.global);
 
   const fetchUserList = async (username: string): Promise<UserValue[]> => {
-    return fetch(`users?search=${username}&limit=10`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
+    return api
+      .get(`users?search=${username}&limit=10`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => response.data)
       .then((body) =>
         body.map((elem: { name: string; email: string; id: number }) => ({
           label: elem.name,

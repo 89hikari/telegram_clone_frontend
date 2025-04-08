@@ -1,17 +1,9 @@
 export interface ISidebarMessage {
   id: number;
-  message: number;
-  senderId: number;
-  receiverId: number;
-  createdFormatDate: string;
-  receiver: {
-    id: number;
-    name: string;
-  };
-  sender: {
-    id: number;
-    name: string;
-  };
+  date: string;
+  message: string;
+  personId: number;
+  personName: string;
 }
 
 export interface ICurrentMessage {
